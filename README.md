@@ -40,7 +40,7 @@ python3 agent.py "Find Wikipedia article about Niagara Falls and open History se
 ### 2. Local form filling (with resume)
 Optionally place a `resume.pdf` next to `job_form.py` (the script auto-attaches it when the model clicks the file input).
 ```zsh
-python3 app1.py "Open the local job application form and fill it with: Full Name Jane Applicant, Email jane.applicant@example.com, Phone +1 555 000 9999, Position Software Engineer, Consent Yes, Cover letter: Motivated and quick learner. Attach resume.pdf and submit."
+python3 job_form.py "Open the local job application form and fill it with: Full Name Jane Applicant, Email jane.applicant@example.com, Phone +1 555 000 9999, Position Software Engineer, Consent Yes, Cover letter: Motivated and quick learner. Attach resume.pdf and submit."
 ```
 After submission the page shows a green summary box; no data leaves your machine.
 
