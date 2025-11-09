@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Application</title>
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background:#f7f7fb; margin:0; }
+      .container { max-width: 720px; margin: 40px auto; background: #fff; padding: 24px 28px; border-radius: 12px; box-shadow: 0 10px 24px rgba(0,0,0,0.06); }
+      h1 { margin: 0 0 16px; font-size: 24px; }
+      p.hint { margin-top: 0; color:#555; }
+      label { display:block; font-weight: 600; margin: 16px 0 6px; }
+      input, select, textarea { width:100%; padding: 10px 12px; border-radius: 8px; border:1px solid #ccc; font-size: 14px; }
+      textarea { min-height: 120px; }
+      .row { display:flex; gap:16px; }
+      .row > div { flex:1; }
+      .checkbox { display:flex; gap: 8px; align-items:center; margin-top: 12px; }
+      button { margin-top: 18px; background:#2563eb; color:#fff; border:none; padding: 12px 16px; font-weight:700; border-radius:10px; cursor:pointer; }
+      button:hover { background:#1e4fd6; }
+      .success { margin-top: 20px; padding: 12px; background: #ecfdf5; color:#065f46; border:1px solid #a7f3d0; border-radius: 8px; display:none; }
+      .note { font-size: 12px; color:#666; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Job Application Form</h1>
+      <p class="hint">Fill the form and submit. This page is designed for automated form-filling demos.</p>
+      <form id="job-form">
+        <label for="full_name">Full Name</label>
+        <input id="full_name" name="full_name" type="text" placeholder="Jane Doe" autocomplete="name" />
+
+        <div class="row">
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="jane@example.com" autocomplete="email" />
+          </div>
+          <div>
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" type="tel" placeholder="+1 555 123 4567" autocomplete="tel" />
+          </div>
+        </div>
+
+        <label for="position">Position</label>
+        <select id="position" name="position">
+          <option value="">Select a role</option>
+          <option>Software Engineer</option>
+          <option>Data Scientist</option>
+          <option>Product Manager</option>
+          <option>Designer</option>
+        </select>
+
+  <label for="cover_letter">Cover Letter</label>
+  <textarea id="cover_letter" name="cover_letter" placeholder="A short note about you..."></textarea>
+
+  <label for="resume">Resume (PDF)</label>
+  <input id="resume" name="resume" type="file" accept="application/pdf" />
+  <div class="note" id="resume_note">No file selected.</div>
+
+        <div class="checkbox">
+          <input type="checkbox" id="consent" name="consent" />
+          <label for="consent" style="margin:0; font-weight:400;">I agree to the processing of my personal data.</label>
+        </div>
+
+        <button id="submit_btn" type="submit">Submit Application</button>
+        <div id="success" class="success"></div>
+        <p class="note">No data is sent to a server. Submission is intercepted and shown below.</p>
+      </form>
+    </div>
+
+    <script>
+      const form = document.getElementById('job-form');
+      const success = document.getElementById('success');
+      const resumeInput = document.getElementById('resume');
+      const resumeNote = document.getElementById('resume_note');
+
+      resumeInput.addEventListener('change', () => {
+        const f = resumeInput.files && resumeInput.files[0];
+        resumeNote.textContent = f ? `Selected: ${f.name}` : 'No file selected.';
+      });
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const data = new FormData(form);
+        const name = data.get('full_name') || '(missing name)';
+        const email = data.get('email') || '(missing email)';
+        const phone = data.get('phone') || '(missing phone)';
+        const position = data.get('position') || '(missing position)';
+        const cover = data.get('cover_letter') || '(missing cover letter)';
+        const consent = data.get('consent') ? 'Yes' : 'No';
+        const resumeName = (document.getElementById('resume').files[0]?.name) || '(no file)';
+        success.innerHTML = `<strong>Submitted!</strong><br/>
+          <div>Name: ${name}</div>
+          <div>Email: ${email}</div>
+          <div>Phone: ${phone}</div>
+          <div>Position: ${position}</div>
+          <div>Resume: ${resumeName}</div>
+          <div>Consent: ${consent}</div>
+          <div>Cover Letter: ${cover}</div>`;
+        success.style.display = 'block';
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      });
+    </script>
+  </body>
+  </html>
